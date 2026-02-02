@@ -55,7 +55,7 @@ function downloadCertificate() {
     }
 
     const match = records.find(
-      r => r.normalized_email === email
+      r => r.normalized_email2 === email
     );
 
     if (!match) {
@@ -67,5 +67,5 @@ function downloadCertificate() {
   }
 
   window.location.href =
-    `https://payveo.com/api/download.php?uid=${selected.userid}`;
+    `https://payveo.in/api/download.php?uid=${selected.userid}`;
 }
