@@ -1,4 +1,5 @@
 let records = [];
+let selectedRecord = null;
 
 fetch("map.json")
   .then(res => res.json())
@@ -12,17 +13,41 @@ function normalizeName(name) {
     .trim();
 }
 
-function downloadCertificate() {
+function showSuggestions() {
   const input = document.getElementById("nameInput").value;
-  const normalized = normalizeName(input);
+  const list = document.getElementById("suggestions");
+  list.innerHTML = "";
+  selectedRecord = null;
+  document.getElementById("downloadBtn").disabled = true;
 
-  const match = records.find(r => r.normalized === normalized);
+  const q = normalizeName(input);
+  if (!q) return;
 
-  if (!match) {
-    alert("Certificate not found. Please check spelling.");
+  const matches = records
+    .filter(r => r.normalized.includes(q))
+    .slice(0, 6);
+
+  matches.forEach(r => {
+    const li = document.createElement("li");
+    li.textContent = r.name;
+    li.onclick = () => selectSuggestion(r);
+    list.appendChild(li);
+  });
+}
+
+function selectSuggestion(record) {
+  document.getElementById("nameInput").value = record.name;
+  document.getElementById("suggestions").innerHTML = "";
+  selectedRecord = record;
+  document.getElementById("downloadBtn").disabled = false;
+}
+
+function downloadCertificate() {
+  if (!selectedRecord) {
+    alert("Please select your name from the list.");
     return;
   }
 
   window.location.href =
-    `https://payveo.com/api/download.php?uid=${match.userid}`;
+    `https://payveo.in/api/download.php?uid=${selectedRecord.userid}`;
 }
