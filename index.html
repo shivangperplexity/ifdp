@@ -10,33 +10,26 @@
 <div class="container">
   <div class="card">
     <h1>Download Your Certificate</h1>
-    <p>Search by name or use your registered email</p>
 
-    <div class="field">
-      <label>Search by Name</label>
-      <input
-        id="nameInput"
-        placeholder="Type at least 4 letters"
-        autocomplete="off"
-      />
-      <ul id="nameSuggestions"></ul>
-    </div>
+    <input
+      id="nameInput"
+      placeholder="Type at least 4 letters"
+      autocomplete="off"
+    />
 
-    <div class="divider">OR</div>
-
-    <div class="field">
-      <label>Search by Registered Email</label>
-      <input
-        id="emailInput"
-        placeholder="email used during registration"
-      />
-    </div>
+    <input
+      id="emailInput"
+      placeholder="registered email (optional)"
+    />
 
     <button id="downloadBtn" disabled>
       Download Certificate
     </button>
   </div>
 </div>
+
+<!-- 🔥 Suggestions rendered OUTSIDE card -->
+<ul id="suggestions-root"></ul>
 
 <script src="script.js"></script>
 </body>
