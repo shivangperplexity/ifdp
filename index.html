@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Download Certificate</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="card">
-  <h1>Download Your Certificate</h1>
-  <p>Search your name and download your certificate</p>
+  <h1>Download Certificate</h1>
+  <p>Search by name or use your registered email</p>
 
-  <div class="search-box">
+  <div class="field">
+    <label>Search by Name</label>
     <input
       id="nameInput"
-      type="text"
-      placeholder="Start typing your name…"
+      placeholder="Type at least 5 letters"
+      oninput="showNameSuggestions()"
       autocomplete="off"
-      oninput="showSuggestions()"
     />
-    <ul id="suggestions"></ul>
+    <ul id="nameSuggestions"></ul>
+  </div>
+
+  <div class="or">OR</div>
+
+  <div class="field">
+    <label>Search by Registered Email</label>
+    <input
+      id="emailInput"
+      placeholder="your@email.com"
+      oninput="normalizeEmailInput()"
+    />
   </div>
 
   <button id="downloadBtn" onclick="downloadCertificate()" disabled>
