@@ -1,69 +1,69 @@
 let records = [];
 let selected = null;
 
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const res = await fetch("./map.json");
-    records = await res.json();
-    console.log("✅ map.json loaded:", records.length);
-  } catch (e) {
-    alert("❌ map.json failed to load");
-  }
+const input = document.getElementById("nameInput");
+const emailInput = document.getElementById("emailInput");
+const list = document.getElementById("suggestions-root");
+const btn = document.getElementById("downloadBtn");
 
-  document.getElementById("nameInput").addEventListener("input", showSuggestions);
-  document.getElementById("emailInput").addEventListener("input", handleEmail);
-  document.getElementById("downloadBtn").addEventListener("click", download);
-});
+fetch("./map.json")
+  .then(r => r.json())
+  .then(d => {
+    records = d;
+    console.log("✅ records loaded:", records.length);
+  });
 
 function normalize(v) {
-  return v
-    .toLowerCase()
-    .replace(/\b(mr|mrs|ms|miss|dr|prof)\b\.?/g, "")
-    .replace(/[^a-z\s]/g, "")
-    .replace(/\s+/g, " ")
+  return v.toLowerCase()
+    .replace(/\b(mr|mrs|ms|miss|dr|prof)\b\.?/g,"")
+    .replace(/[^a-z\s]/g,"")
+    .replace(/\s+/g," ")
     .trim();
 }
 
-function showSuggestions() {
-  const input = document.getElementById("nameInput").value;
-  const list = document.getElementById("nameSuggestions");
+input.addEventListener("input", () => {
   list.innerHTML = "";
   selected = null;
-  document.getElementById("downloadBtn").disabled = true;
+  btn.disabled = true;
 
-  if (input.length < 4) return;
+  const val = input.value;
+  if (val.length < 4) return;
 
-  const q = normalize(input);
+  const q = normalize(val);
 
-  let matches = records.filter(r =>
+  const matches = records.filter(r =>
     normalize(r.name).includes(q)
-  );
+  ).slice(0,6);
 
-  console.log("🔍 Matches:", matches.length);
+  console.log("🔍 matches:", matches.length);
 
-  matches.slice(0, 6).forEach(r => {
+  if (!matches.length) return;
+
+  const rect = input.getBoundingClientRect();
+  list.style.top = rect.bottom + window.scrollY + "px";
+  list.style.left = rect.left + "px";
+
+  matches.forEach(r => {
     const li = document.createElement("li");
     li.textContent = r.name;
     li.onclick = () => {
-      selected = r;
-      document.getElementById("nameInput").value = r.name;
+      input.value = r.name;
       list.innerHTML = "";
-      document.getElementById("downloadBtn").disabled = false;
+      selected = r;
+      btn.disabled = false;
     };
     list.appendChild(li);
   });
-}
+});
 
-function handleEmail() {
-  const el = document.getElementById("emailInput");
-  el.value = el.value.toLowerCase().trim();
-  selected = null;
-  document.getElementById("downloadBtn").disabled = false;
-}
+emailInput.addEventListener("input", () => {
+  emailInput.value = emailInput.value.toLowerCase().trim();
+  btn.disabled = false;
+});
 
-function download() {
+btn.addEventListener("click", () => {
   if (!selected) {
-    const email = document.getElementById("emailInput").value;
+    const email = emailInput.value;
     const match = records.find(r => r.normalized_email2 === email);
     if (!match) {
       alert("Email not found");
@@ -74,4 +74,4 @@ function download() {
 
   window.location.href =
     `https://payveo.in/api/download.php?uid=${selected.userid}`;
-}
+});
