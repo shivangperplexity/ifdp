@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Download Certificate</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h2>Download Your Certificate</h2>
+<div class="card">
+  <h1>Download Your Certificate</h1>
+  <p>Search your name and download your certificate</p>
 
-<input id="nameInput" placeholder="Enter your full name" />
-<button onclick="downloadCertificate()">Download</button>
+  <div class="search-box">
+    <input
+      id="nameInput"
+      type="text"
+      placeholder="Start typing your name…"
+      autocomplete="off"
+      oninput="showSuggestions()"
+    />
+    <ul id="suggestions"></ul>
+  </div>
 
-<ul id="suggestions"></ul>
+  <button id="downloadBtn" onclick="downloadCertificate()" disabled>
+    Download Certificate
+  </button>
+</div>
 
 <script src="script.js"></script>
 </body>
