@@ -7,35 +7,35 @@
 </head>
 <body>
 
-<div class="card">
-  <h1>Download Certificate</h1>
-  <p>Search by name or use your registered email</p>
+<div class="container">
+  <div class="card">
+    <h1>Download Your Certificate</h1>
+    <p>Search by name or use your registered email</p>
 
-  <div class="field">
-    <label>Search by Name</label>
-    <input
-      id="nameInput"
-      placeholder="Type at least 5 letters"
-      oninput="showNameSuggestions()"
-      autocomplete="off"
-    />
-    <ul id="nameSuggestions"></ul>
+    <div class="field">
+      <label>Search by Name</label>
+      <input
+        id="nameInput"
+        placeholder="Type at least 4 letters"
+        autocomplete="off"
+      />
+      <ul id="nameSuggestions"></ul>
+    </div>
+
+    <div class="divider">OR</div>
+
+    <div class="field">
+      <label>Search by Registered Email</label>
+      <input
+        id="emailInput"
+        placeholder="email used during registration"
+      />
+    </div>
+
+    <button id="downloadBtn" disabled>
+      Download Certificate
+    </button>
   </div>
-
-  <div class="or">OR</div>
-
-  <div class="field">
-    <label>Search by Registered Email</label>
-    <input
-      id="emailInput"
-      placeholder="email used during registration"
-      oninput="normalizeEmailInput()"
-    />
-  </div>
-
-  <button id="downloadBtn" onclick="downloadCertificate()" disabled>
-    Download Certificate
-  </button>
 </div>
 
 <script src="script.js"></script>
