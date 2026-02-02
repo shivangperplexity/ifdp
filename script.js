@@ -1,9 +1,23 @@
 let records = [];
 let selectedRecord = null;
+let dataLoaded = false;
 
-fetch("map.json")
-  .then(res => res.json())
-  .then(data => records = data);
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("./map.json")   // IMPORTANT: explicit relative path
+    .then(res => {
+      if (!res.ok) throw new Error("map.json not found");
+      return res.json();
+    })
+    .then(data => {
+      records = data;
+      dataLoaded = true;
+      console.log("✅ Loaded records:", records.length);
+    })
+    .catch(err => {
+      console.error("❌ Failed to load map.json", err);
+      alert("Data file failed to load. Check map.json path.");
+    });
+});
 
 function normalizeName(name) {
   return name
@@ -14,6 +28,8 @@ function normalizeName(name) {
 }
 
 function showSuggestions() {
+  if (!dataLoaded) return;
+
   const input = document.getElementById("nameInput").value;
   const list = document.getElementById("suggestions");
   list.innerHTML = "";
@@ -21,7 +37,7 @@ function showSuggestions() {
   document.getElementById("downloadBtn").disabled = true;
 
   const q = normalizeName(input);
-  if (!q) return;
+  if (q.length < 2) return;
 
   const matches = records
     .filter(r => r.normalized.includes(q))
@@ -49,5 +65,5 @@ function downloadCertificate() {
   }
 
   window.location.href =
-    `https://payveo.in/api/download.php?uid=${selectedRecord.userid}`;
+    `https://payveo.com/api/download.php?uid=${selectedRecord.userid}`;
 }
