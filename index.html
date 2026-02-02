@@ -2,33 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Download Certificate</title>
+  <title>IFDP Certificate Download</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="page">
   <div class="card">
-    <h1>Download Your Certificate</h1>
 
-    <input
-      id="nameInput"
-      placeholder="Type at least 4 letters"
-      autocomplete="off"
-    />
+    <header class="header">
+      <h1>Bharati Vidyapeeth</h1>
+      <h2>(Deemed to be University)</h2>
+      <h3>College of Engineering, Pune</h3>
+    </header>
 
-    <input
-      id="emailInput"
-      placeholder="registered email (optional)"
-    />
+    <section class="program">
+      <h4>International Faculty Development Program (IFDP)</h4>
+      <p>
+        Thank you for participating in the <strong>One-Week International Faculty Development Program</strong>
+        organized by the Departments of <strong>Computer Science & Business Systems</strong> and
+        <strong>Information Technology</strong>, held from
+        <strong>10<sup>th</sup> to 14<sup>th</sup> January 2026</strong>.
+      </p>
+      <p class="brochure">
+        We are pleased to share your participation certificate.
+      </p>
+    </section>
 
-    <button id="downloadBtn" disabled>
-      Download Certificate
-    </button>
+    <section class="form">
+
+      <div class="field">
+        <label>Search by Name</label>
+        <input
+          id="nameInput"
+          placeholder="Type at least 4 letters of your name"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="divider">OR</div>
+
+      <div class="field">
+        <label>Search by Registered Email</label>
+        <input
+          id="emailInput"
+          placeholder="email used during registration"
+        />
+      </div>
+
+      <button id="downloadBtn" disabled>
+        Download Certificate
+      </button>
+
+    </section>
+
+    <footer class="footer">
+      <p>
+        For any queries regarding the program, please contact the organizing committee,
+        Bharati Vidyapeeth (Deemed to be University), College of Engineering, Pune.
+      </p>
+    </footer>
+
   </div>
 </div>
 
-<!-- 🔥 Suggestions rendered OUTSIDE card -->
+<!-- Suggestions rendered globally -->
 <ul id="suggestions-root"></ul>
 
 <script src="script.js"></script>
